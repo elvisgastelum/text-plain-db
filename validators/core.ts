@@ -1,5 +1,5 @@
 import { ISchemaObject, Types } from "../types/core.ts";
-import { z } from "zod";
+import { z } from "../deps.ts";
 
 export const Validators = {
   String: (value: unknown) => {
