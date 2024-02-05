@@ -12,7 +12,7 @@ export interface IRecord {
   Id: string;
 }
 
-export type ISchemaObject = Object & IRecord;
+export type ISchemaObject = object & IRecord;
 
 export interface ITable<Schema extends ISchemaObject> {
   schema: Record<string, string>;

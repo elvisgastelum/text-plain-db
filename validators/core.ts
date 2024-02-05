@@ -1,35 +1,34 @@
 import { ISchemaObject, Types } from "../types/core.ts";
+import { z } from "zod";
 
-export const Validators: Record<keyof Types, (value: unknown) => boolean> = {
+export const Validators = {
   String: (value: unknown) => {
-    if (typeof value !== "string") {
-      throw new Error("Expected a string");
-    }
-    return true;
+    const schema = z.string();
+
+    return schema.safeParse(value).success;
   },
   Int: (value: unknown) => {
-    if (typeof value !== "number") {
-      throw new Error("Expected a number");
-    }
-    return true;
+    const schema = z.number().int("Should be an integer");
+
+    return schema.safeParse(value).success;
   },
   Float: (value: unknown) => {
-    if (typeof value !== "number") {
-      throw new Error("Expected a number");
-    }
-    return true;
+    const schema = z.number().refine((n) => {
+      return !z.number().int().safeParse(n).success &&
+        z.number().finite().safeParse(n).success;
+    }, "Should not be an integer");
+
+    return schema.safeParse(value).success;
   },
   UUID: (value: unknown) => {
-    if (typeof value !== "string") {
-      throw new Error("Expected a string");
-    }
-    return true;
+    const schema = z.string().uuid("Should be a valid UUID");
+
+    return schema.safeParse(value).success;
   },
   "Time.DateTime": (value: unknown) => {
-    if (typeof value !== "string") {
-      throw new Error("Expected a string");
-    }
-    return true;
+    const schema = z.string().datetime("Should be a valid date");
+
+    return schema.safeParse(value).success;
   },
 };
 
@@ -46,6 +45,6 @@ export const validateSchema = <Schema extends ISchemaObject>(
     if (typeof data !== "object" || data === null || !(key in data)) {
       throw new Error(`Missing key: ${key}`);
     }
-    return validator(data[key]);
+    return validator(data[key as keyof typeof data]);
   });
 };
