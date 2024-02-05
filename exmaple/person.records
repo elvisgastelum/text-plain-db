@@ -1,0 +1,34 @@
+Id	UUID
+Age	Int
+Name	String
+Created	Time.DateTime
+
+Id	893ede88-9f34-4d24-aaaf-61718bd6d80d
+Age	30
+Name	John
+Created	2019-01-01T00:00:00Z
+
+Id	8b0ff359-6cc3-434c-a9de-a1d562822b45
+Age	20
+Name	Bob
+Created	2019-01-01T00:00:00Z
+
+Id	75d139ec-b376-45ee-a1f0-a07b26d168fd
+Age	10
+Name	Alice
+Created	2019-01-01T00:00:00Z
+
+Id	c3e924f7-ff0f-4cbc-90cf-bfc2b71f3bee
+Age	24
+Name	Eve
+Created	2019-01-01T00:00:00Z
+
+Id	c3e924f7-ff0f-4cbc-90cf-bfc2b71f3be6
+Age	25
+Name	John Doe
+Created	2024-02-05T00:39:16.089Z
+
+Id	1b7bf597-72c4-4f6f-b734-d42670767e1b
+Age	24
+Name	Jane Doe
+Created	2024-02-05T00:39:16.091Z
