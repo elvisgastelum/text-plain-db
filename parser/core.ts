@@ -4,7 +4,7 @@ export class TableParser<Schema extends ISchemaObject>
   implements ITableParser<Schema>
 {
   parse(data: string): ITable<Schema> {
-    const lines = data.split("\n\n");
+    const lines = data.trim().split("\n\n");
     const definition = lines[0].split("\n");
     const values = lines.slice(1);
 

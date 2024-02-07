@@ -29,7 +29,7 @@ export interface IValidator<Schema extends ISchemaObject> {
 }
 
 export interface IWritter<Schema extends ISchemaObject> {
-  write: (data: Schema) => Promise<void>;
+  write: (data: Schema) => Promise<Schema | null>;
 }
 
 export interface IReader<Schema extends ISchemaObject> {

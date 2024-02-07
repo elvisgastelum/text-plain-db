@@ -1,5 +1,5 @@
 import { TableParser } from "../parser/core.ts";
-import { IWritter, ISchemaObject, Types, IValidator } from "../types/core.ts";
+import { ISchemaObject, IValidator, IWritter, Types } from "../types/core.ts";
 
 export class Writter<Schema extends ISchemaObject> implements IWritter<Schema> {
   protected schema: Record<string, keyof Types>;
@@ -14,17 +14,20 @@ export class Writter<Schema extends ISchemaObject> implements IWritter<Schema> {
 
   public async write(data: Schema) {
     const { schema, validator } = this;
+    let savedRecord: Schema | null = null;
 
     const table = this.parser.parse(await Deno.readTextFile(this.path));
 
     if (table.records.some((record) => record.Id === data.Id)) {
       table.records = table.records.map((record) => {
         if (record.Id === data.Id) {
-          return { ...record, ...data };
+          const savedRecord = { ...record, ...data };
+          return savedRecord;
         }
         return record;
       });
     } else {
+      savedRecord = data;
       table.records.push(data);
     }
 
@@ -53,5 +56,7 @@ export class Writter<Schema extends ISchemaObject> implements IWritter<Schema> {
       .join("\n");
 
     await Deno.writeTextFile(this.path, `${schemaString}\n\n${records}`);
+
+    return savedRecord;
   }
 }
